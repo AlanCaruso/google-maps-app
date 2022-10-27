@@ -1,4 +1,5 @@
 <input #mapSearchField placeholder="Search Location" class="map-search-field" type="text" />
 <google-map #myGoogleMap id="map" class="google-maps" width="80%" [center]="initialCoordinates"
   [options]="mapConfigurations">
+  <map-marker [position]="initialCoordinates"></map-marker>
 </google-map>

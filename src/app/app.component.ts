@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { GoogleMap } from '@angular/google-maps';
+import { GoogleMap, MapMarker } from '@angular/google-maps';
 
 @Component({
   selector: 'app-root',
@@ -60,20 +60,41 @@ export class AppComponent {
         if (!place.geometry || !place.geometry.location) {
           return;
         }
+
         if (place.geometry.viewport) {
           bounds.union(place.geometry.viewport)
         } else {
           bounds.extend(place.geometry.location)
         }
+
       });
       this.map.fitBounds(bounds)
 
 
+
     })
+
 
   }
 
+  markers = [] as any;
+  dropMarker(event: any) {
+    this.markers.push({
+      position: {
+        lat: event.latLng.lat(),
+        lng: event.latLng.lng(),
+      },
+      label: {
+        color: 'blue',
+        text: 'Marker label ' + (this.markers.length + 1),
+      },
+      title: 'Marker title ' + (this.markers.length + 1),
+      info: 'Marker info ' + (this.markers.length + 1),
+      options: {
+        animation: google.maps.Animation.DROP,
+      },
+    })
+  }
 
 
 }
-
